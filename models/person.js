@@ -18,9 +18,17 @@ mongoose.connect(url)
     name: {
       type: String,
       minlength: 3,
-      required: true
+      required: [true, 'The name must be at least 3 characters long']
     },
-    number: String
+    number: {
+      type: String,
+      validate: {
+        validator: function(phonenumber) {
+            return (/(\d{2}-\d{5,})|(\d{3}-\d{4,})/).test(phonenumber)
+        }
+      },
+      required: [true, 'The phone number is malformatted. It must contain 2 or 3 number before "-" and must be at least 8 characters long of which 7 must be numbers.']
+    }
   })
 
 personSchema.set('toJSON', {
