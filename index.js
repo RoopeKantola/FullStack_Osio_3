@@ -63,7 +63,7 @@ app.delete('/api/persons/:id', (request, response, next) => {
       .catch(error => next(error))
   })
 
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
     console.log('This is the POST section')
 
     if (!request.body.name || !request.body.number) {
@@ -98,7 +98,9 @@ app.post('/api/persons', (request, response) => {
                   })
 
     
-}})})
+    }})
+    .catch(error => next(error))
+})
 
 app.put('/api/persons/:id', (request, response, next) => {
     const person = {
